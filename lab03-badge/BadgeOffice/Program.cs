@@ -37,3 +37,43 @@ int lockerNumber = rng.Next(1,501);
 //output
 Console.WriteLine("Student ID: " + studentID);
 Console.WriteLine("Locker: " + lockerNumber);
+
+//Part 3: The Walk
+
+//dorm coords
+Console.Write("Dorm X: ");
+int dormX = Convert.ToInt32(Console.ReadLine());
+Console.Write("Dorm Y: ");
+int dormY = Convert.ToInt32(Console.ReadLine());
+
+//classroom coords
+Console.Write("Classroom X: ");
+int classroomX = Convert.ToInt32(Console.ReadLine());
+Console.Write("Classroom Y: ");
+int classroomY = Convert.ToInt32(Console.ReadLine());
+
+//student speed
+Console.Write("Walking speed in feet per second: ");
+double studentSpeed = Convert.ToDouble(Console.ReadLine());
+
+//distance
+double distance;
+
+//x
+double x = (double)classroomX - dormX;
+x = Math.Pow(x, 2);
+
+//y
+double y = (double)classroomY - dormY;
+y = Math.Pow(y, 2);
+
+distance = x + y;
+distance = Math.Sqrt(distance);
+
+double time = Math.Round(distance/studentSpeed, 0);
+double minutes = Math.Floor(time/60);
+double seconds = Math.Round(time%60);
+
+Console.WriteLine("Distance: " + distance.ToString("F1") + "feet");
+Console.WriteLine($"Walk time: {minutes} minutes {seconds} seconds ");
+
