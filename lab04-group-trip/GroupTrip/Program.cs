@@ -1,5 +1,6 @@
 ﻿
 //constants
+
 const double taxRate =.18;
 const int slice = 8;
 
@@ -24,9 +25,9 @@ double takeHomePay;
 
 //trip money
 double tripTotal;
-double costPerPerson;
 double takeHomePayPerHour;
 double hoursMustWork;
+
 
 //getting variable inputs
 Console.Write("Round trip miles: ");
@@ -65,6 +66,21 @@ Console.WriteLine(" ");
 
 Console.WriteLine("=== Part 2: The Group ===");
 
+//arrays
+string[] names = { "Ada", "Grace", "Alan", "Katherine" };
+double[] hoursWorked = { 22, 15, 30, 18 };
+double[] hourlyRates = { 13.50, 16.00, 11.20, 14.80 };
+
+//variables from array
+double peopleGoing = names.Length;
+double slicesEach = (pizzaAmount*slice)/names.Length;
+double costPerPerson = tripTotal/names.Length;
+
+Console.WriteLine("People going: " + peopleGoing);
+Console.WriteLine("Slices each: " + slicesEach.ToString("F1"));
+Console.WriteLine("Cost per person: " + costPerPerson.ToString("C"));
+
+Console.WriteLine(" ");
 
 Console.WriteLine("=== Part 3: Who Works How Long ===");
 
