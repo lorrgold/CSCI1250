@@ -1,6 +1,14 @@
 ﻿
-//constants
+/*
+* Name: Angel Goldsmith
+* Course: CSCI 1250, Section 001
+* Assignment: Lab 04, The Group Trip
+* Date: October 14, 2026
+* Description: Rebuilds the trip calculator with methods and arrays so it
+* reports on a whole group instead of one person.
+*/
 
+//constants
 const double taxRate =.18;
 const int slice = 8;
 
@@ -8,25 +16,16 @@ const int slice = 8;
 double tripMiles;
 double milesGallon;
 double priceGallon;
-double gallonsNeeded;
-double fuelCost;
+
 
 //pizza variables
 int pizzaAmount;
 double pizzaPrice;
-int totalSlices;
-double slicePerPerson;
 double pizzaCost;
-
-//pay variables
-double grossPay;
-double taxWithheld;
-double takeHomePay;
 
 //trip money
 double tripTotal;
-double takeHomePayPerHour;
-double hoursMustWork;
+
 
 
 //getting variable inputs
@@ -48,6 +47,8 @@ pizzaPrice = Convert.ToDouble(Console.ReadLine());
 
 Console.WriteLine(" ");
 
+
+
 //Part 1
 Console.WriteLine("=== Part 1: The Trip ===");
 
@@ -61,9 +62,12 @@ tripTotal = FuelCost(tripMiles, milesGallon, priceGallon)+pizzaCost;
 Console.WriteLine("Trip total: " + tripTotal.ToString("C"));
 
 
+
+//Line Break
 Console.WriteLine(" ");
 
 
+//Part 2
 Console.WriteLine("=== Part 2: The Group ===");
 
 //arrays
@@ -80,31 +84,50 @@ Console.WriteLine("People going: " + peopleGoing);
 Console.WriteLine("Slices each: " + slicesEach.ToString("F1"));
 Console.WriteLine("Cost per person: " + costPerPerson.ToString("C"));
 
+//Line Break
 Console.WriteLine(" ");
 
+
+
+//Part 3
 Console.WriteLine("=== Part 3: Who Works How Long ===");
 
+//variables for loop
+double totalHours = 0;
+double totalPay = 0;
+double longest = 0;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-static double FuelCost(double tripMiles, double milesGallon, double priceGallon)
+for (int i = 0; i < names.Length; i++)
 {
-    double gallonsNeeded = tripMiles/milesGallon;
+    totalHours = totalHours + hoursWorked[i];
+    double homePay = TakeHomePay(hoursWorked[i], hourlyRates[i], taxRate);
+    double takeHomePerHour = homePay/hoursWorked[i];
+    double hoursMustWork = HoursToCover(costPerPerson, takeHomePerHour);
+    totalPay = totalPay + homePay;
+    longest = Math.Max(longest, hoursMustWork);
+    Console.WriteLine($"{names[i]}: takes home {homePay.ToString("C")} for {hoursWorked[i]} hours, {takeHomePerHour.ToString("C")} per hour, must work {hoursMustWork.ToString("F2")} hours");
+
+}
+
+//Line Break
+Console.WriteLine(" ");
+
+//Totals and Longest
+Console.WriteLine("Total hours worked: " + totalHours);
+Console.WriteLine("Total take home pay: " + totalPay.ToString("C"));
+Console.WriteLine("Longest anyone must work: " + longest.ToString("F2"));
+
+
+//Methods
+
+//Returns the FuelCost/ Cost of fuel for trip
+static double FuelCost(double miles, double milesGallon, double priceGallon)
+{
+    double gallonsNeeded = miles/milesGallon;
     return gallonsNeeded*priceGallon;
 }
 
-
+//Returns TakeHomePay/ Amount of money they take home
 static double TakeHomePay(double hours, double hourlyRate, double taxRate)
 {
     double grossPay = hours*hourlyRate;
@@ -113,10 +136,8 @@ static double TakeHomePay(double hours, double hourlyRate, double taxRate)
 
 }
 
-
-// static double HoursToCover(double amountOwed, double takeHomePayPerHour)
-// {
-//     double costPerPerson = tripTotal/peopleAmount;
-//     takeHomePayPerHour = takeHomePay/weekHours;
-//     return costPerPerson/takeHomePayPerHour;
-// }
+//Returns HoursToCover/ Hours needed to work
+static double HoursToCover(double amountOwed, double takeHomePerHour)
+{
+    return amountOwed/takeHomePerHour;
+}
