@@ -1,4 +1,6 @@
 ﻿
+using System.Xml.Schema;
+
 Random rng = new Random (4000);
 int choice = 0;
 int score = 0;
@@ -7,8 +9,13 @@ int roll2 = 0;
 string rollAgain = " ";
 int roll = 0;
 int won = 0;
-//do
-//{
+int scoreAmount = 0;
+int total = 0;
+double average = 0;
+int highest = 0;
+int passing = 0;
+// do
+// {
 System.Console.WriteLine("=== CSCI 1250 Lab 06 ===");
 System.Console.WriteLine("1. The Grade Checker");
 System.Console.WriteLine("2. The Dice Table");
@@ -17,6 +24,7 @@ System.Console.WriteLine("4. All three");
 System.Console.WriteLine("5. Quit");
 Console.Write("Chose 1 through 5: ");
 choice = Convert.ToInt32(Console.ReadLine());
+
 //while: has to run multiple times
 while (choice > 5)
 {
@@ -29,6 +37,7 @@ while (choice > 5)
 if (choice == 1 || choice == 4)
 {
 // Exercise 1
+System.Console.WriteLine(" ");
 System.Console.WriteLine("=== Exercise 1: The Grade Checker ===");
 Console.Write("Score: ");
 score = Convert.ToInt32(Console.ReadLine());
@@ -64,12 +73,14 @@ else if (score <= 59)
     {
         System.Console.WriteLine($"{score} earns a F.");
     }
+ System.Console.WriteLine(" ");
 }
 
 //
 if (choice == 2 || choice == 4)
 {
 // Exercise 2
+System.Console.WriteLine(" ");
 System.Console.WriteLine("=== Exercise 2: The Dice Table ===");
 
 //
@@ -122,6 +133,7 @@ rollAgain = Console.ReadLine();
 //
 while (rollAgain == "y" && rollAgain != "n");
 System.Console.WriteLine($"You rolled {roll} and won {won}");
+System.Console.WriteLine(" ");
 }
 
 
@@ -129,10 +141,44 @@ System.Console.WriteLine($"You rolled {roll} and won {won}");
 //
 if (choice == 3 || choice == 4)
 {
-// Exercise 3
-System.Console.WriteLine("3");
+System.Console.WriteLine(" ");
+System.Console.WriteLine("=== Exercise 3: The Score Report ===");
+
+int[] scores = new int[5];
+scoreAmount = scores.Length;
+
+//
+for (int i = 0; i < scoreAmount; i++)
+    {
+        System.Console.Write($"Score {i + 1}: ");
+        scores[i] = Convert.ToInt32(Console.ReadLine());
+    }
+    
+//
+foreach (int percentage in scores)
+    {
+        total += percentage;
+        average = (double)total / 5;
+        if (percentage >= 60)
+        {
+            passing = passing + 1;
+        }
+    }
+
+    highest = scores.Max();
+
+    System.Console.WriteLine(" ");
+    System.Console.WriteLine("Scores entered: " + scoreAmount);
+    Console.WriteLine("Total: " + total);
+    Console.WriteLine("Average: " + average.ToString("F1"));
+    Console.WriteLine("Highest: " + highest);
+    System.Console.WriteLine($"Passing: {passing} out of 5");
+    System.Console.WriteLine(" ");
 }
+
+
 //} while (choice !=5);
 
-//Console.WriteLine("Goodbye.");
+// System.Console.WriteLine(" ");
+// Console.WriteLine("Goodbye.");
 
